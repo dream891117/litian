@@ -2,7 +2,6 @@ package net.xxs.util;
 
 import java.util.UUID;
 
-import net.xxs.service.GoodsService;
 import net.xxs.service.OrderService;
 import net.xxs.service.PaymentService;
 import net.xxs.service.ProductService;
@@ -18,9 +17,6 @@ import org.apache.commons.lang.StringUtils;
  */
 
 public class SerialNumberUtil {
-	
-	public static final String GOODS_SN_PREFIX = "SN_";// 商品编号前缀
-	public static final String PRODUCT_SN_PREFIX = "SN_";// 货品编号前缀
 	
 	public static final String ORDER_SN_PREFIX = "DD";// 订单编号前缀
 	public static final long ORDER_SN_FIRST = 100000L;// 订单编号起始数
@@ -107,44 +103,23 @@ public class SerialNumberUtil {
 		} else {
 			lastWithdrawSnNumber = WITHDRAW_SN_FIRST;
 		}
-	}
-	
-	/**
-	 * 生成商品编号
-	 * 
-	 * @return 商品编号
-	 */
-	public static String buildGoodsSn() {
-		GoodsService goodsService = (GoodsService) SpringUtil.getBean("goodsServiceImpl");
-		String goodsSn;
-		do {
-			String uuid = UUID.randomUUID().toString();
-			goodsSn = GOODS_SN_PREFIX + (uuid.substring(0, 8) + uuid.substring(9, 13)).toUpperCase();
-		} while (goodsService.isExistByGoodsSn(goodsSn));
-		return goodsSn;
-	}
-	
-	/**
-	 * 生成货品编号
-	 * 
-	 * @return 商品编号
-	 */
-	public static String buildProductSn() {
-		ProductService productService = (ProductService) SpringUtil.getBean("productServiceImpl");
-		String productSn;
-		do {
-			String uuid = UUID.randomUUID().toString();
-			productSn = PRODUCT_SN_PREFIX + (uuid.substring(0, 8) + uuid.substring(9, 13)).toUpperCase();
-		} while (productService.isExistByProductSn(productSn));
-		return productSn;
-	}
-	
+		
+		// 退货编号
+		WithdrawService withdrawService = (WithdrawService) SpringUtil.getBean("withdrawServiceImpl");
+		String lastWithdrawSn = withdrawService.getLastWithdrawSn();
+		if (StringUtils.isNotEmpty(lastWithdrawSn)) {
+			lastWithdrawSnNumber = Long.parseLong(StringUtils.removeStartIgnoreCase(lastWithdrawSn, WITHDRAW_SN_PREFIX));
+		} else {
+			lastWithdrawSnNumber = WITHDRAW_SN_FIRST;
+		}
+	}	
 	/**
 	 * 生成订单编号
 	 * 
 	 * @return 订单编号
 	 */
 	public synchronized static String buildOrderSn() {
+		
 		lastOrderSnNumber += ORDER_SN_STEP;
 		return ORDER_SN_PREFIX + lastOrderSnNumber;
 	}

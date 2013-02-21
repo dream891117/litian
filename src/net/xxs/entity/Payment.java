@@ -47,8 +47,6 @@ public class Payment extends BaseEntity {
 	private PaymentStatus paymentStatus;// 支付状态
 	
 	private Member member;// 会员
-	private PaymentConfig paymentConfig;// 支付方式
-	private Deposit deposit;// 预存款
 	private Order order;// 订单
 	
 	@Column(nullable = false, updatable = false, unique = true)
@@ -160,26 +158,6 @@ public class Payment extends BaseEntity {
 
 	public void setMember(Member member) {
 		this.member = member;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@ForeignKey(name = "fk_payment_payment_config")
-	public PaymentConfig getPaymentConfig() {
-		return paymentConfig;
-	}
-
-	public void setPaymentConfig(PaymentConfig paymentConfig) {
-		this.paymentConfig = paymentConfig;
-	}
-
-	@OneToOne(fetch = FetchType.LAZY)
-	@ForeignKey(name = "fk_payment_deposit")
-	public Deposit getDeposit() {
-		return deposit;
-	}
-
-	public void setDeposit(Deposit deposit) {
-		this.deposit = deposit;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

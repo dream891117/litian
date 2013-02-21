@@ -25,8 +25,8 @@ public class OrderDaoImpl extends BaseDaoImpl<Order, String> implements OrderDao
 	
 	@SuppressWarnings("unchecked")
 	public String getLastOrderSn() {
-		String hql = "from Order as order order by order.createDate desc";
-		List<Order> orderList =  getSession().createQuery(hql).setFirstResult(0).setMaxResults(1).list();
+		String hql = "from Order as order where order.createDate = :createDate order by order.createDate desc";
+		List<Order> orderList =  getSession().createQuery(hql).setParameter("createDate", createDate).setFirstResult(0).setMaxResults(1).list();
 		if (orderList != null && orderList.size() > 0) {
 			return orderList.get(0).getOrderSn();
 		} else {
