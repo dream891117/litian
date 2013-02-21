@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="litian"
+  id="myeclipse.1361427672015"
+  context-root="/litian"
+  j2ee-spec="5.0"
+  archive="litian.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+
