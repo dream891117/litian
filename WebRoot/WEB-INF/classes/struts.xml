@@ -84,38 +84,4 @@
 		</global-results>
 	</package>
 
-	<package name="shop" extends="basePackage" namespace="/shop">
-		<interceptors>
-			<interceptor name="securityInterceptor" class="net.xxs.interceptor.SecurityInterceptor" />
-			<interceptor name="trimInterceptor" class="net.xxs.interceptor.TrimInterceptor" />
-			<interceptor name="memberVerifyInterceptor" class="net.xxs.interceptor.MemberVerifyInterceptor" />
-			<interceptor-stack name="shopStack">
-				<interceptor-ref name="fileUpload">
-					<param name="allowedTypes">image/jpeg,image/pjpeg,image/gif,image/bmp,image/x-ms-bmp,image/png,image/x-png</param>
-					<param name="maximumSize">2097152</param>
-				</interceptor-ref>
-				<interceptor-ref name="securityInterceptor" />
-				<interceptor-ref name="trimInterceptor" />
-				<interceptor-ref name="baseStack" />
-			</interceptor-stack>
-		</interceptors>
-
-		<default-interceptor-ref name="shopStack" />
-
-		<global-results>
-			<result name="login" type="redirect">
-				<param name="location">/html/login.html</param>
-				<param name="loginRedirectUrl">${loginRedirectUrl}</param>
-			</result>
-			<result name="redirect" type="redirectAction">
-				<param name="namespace">/shop</param>
-				<param name="actionName">redirect</param>
-				<param name="redirectUrl">${redirectUrl}</param>
-			</result>
-			<result name="invalid.token" type="freemarker">/WEB-INF/template/shop/invalid_token.ftl</result>
-			<result name="error" type="freemarker">/WEB-INF/template/shop/error.ftl</result>
-			<result name="ajaxError" type="freemarker">/WEB-INF/template/shop/ajax_error.ftl</result>
-		</global-results>
-	</package>
-
 </struts>

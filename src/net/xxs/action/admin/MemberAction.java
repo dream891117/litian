@@ -51,14 +51,8 @@ public class MemberAction extends BaseAdminAction {
 
 	@Resource(name = "memberServiceImpl")
 	private MemberService memberService;
-	@Resource(name = "memberRankServiceImpl")
-	private MemberRankService memberRankService;
-	@Resource(name = "memberAttributeServiceImpl")
-	private MemberAttributeService memberAttributeService;
 	@Resource(name = "areaServiceImpl")
 	private net.xxs.service.AreaService areaService;
-	@Resource(name = "depositServiceImpl")
-	private DepositService depositService;
 
 	// 是否已存在 ajax验证
 	public String checkUsername() {
